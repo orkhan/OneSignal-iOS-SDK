@@ -689,11 +689,14 @@ static BOOL waitingForOneSReg = false;
     uname(&systemInfo);
     NSString *deviceModel   = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
     
+    NSString *firstLanguage = [[NSLocale preferredLanguages] firstObject];
+    NSString *fflanguage = [[firstLanguage componentsSeparatedByString:@"-"] firstObject];
+    
     NSMutableDictionary* dataDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                     app_id, @"app_id",
                                     deviceModel, @"device_model",
                                     [[UIDevice currentDevice] systemVersion], @"device_os",
-                                    [[NSLocale preferredLanguages] objectAtIndex:0], @"language",
+                                    fflanguage, @"language",
                                     [NSNumber numberWithInt:(int)[[NSTimeZone localTimeZone] secondsFromGMT]], @"timezone",
                                     [NSNumber numberWithInt:0], @"device_type",
                                     [[[UIDevice currentDevice] identifierForVendor] UUIDString], @"ad_id",
